@@ -1,3 +1,23 @@
+class ListCollection:
+  def __init__(self):
+    self.listItems = []
+
+  def add(self, listItem):
+    if (type(listItem) == ListItem):
+      self.listItems += [listItem]
+      return True
+    else:
+      return False
+
+  def remove(self, listItem):
+    pass
+
+  def toDict(self):
+    items = []
+    for item in self.listItems:
+      items += [item.toDict()]
+    return dict(listItems=items)
+
 class ListItem:
   def __init__(self, title, description, priority, deadline, tasks = None):
     self.title = title
@@ -15,6 +35,24 @@ class ListItem:
       return True
     else:
       return False
+
+  def getTaskDict(self,dictToAppend):
+    setDict = dictToAppend
+    for task in self.tasks:
+      setDict.get("tasks").append(task.toDict())
+    return setDict
+
+  def toDict(self):
+    tempdict = dict(
+        title=self.title,
+        description=self.description,
+        priority=self.priority,
+        deadline=self.deadline,
+        tasks=[]
+    )
+    return self.getTaskDict(tempdict)
+    
+    
      
 class Task:
   def __init__(self, title, description, deadline):
@@ -44,4 +82,13 @@ class Task:
       return True
     else:
       return False
+
+  def toDict(self):
+    return dict(title=self.title,description=self.description,deadline=self.deadline)
+
+#collection = ListCollection()
+#collection.add(ListItem("EasyList","Small idea for a listmaker",1,"Nonexistent",[Task("Make a tasklist","None","AAA"),Task("Make another","None","AAB")]))
+#collection.add(ListItem("EasyLister","Small idea for a listmakerer",12,"Nonexistenter",[Task("Make a tasklister","Noneer","AAAer"),Task("Make anotherer","Noneer","AABer")]))
+#print(collection.toDict())
+
 

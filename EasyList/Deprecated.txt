@@ -1,0 +1,5 @@
+#collection = ListCollection()
+#collection.add(ListItem("EasyList","Small idea for a listmaker",1,"Nonexistent",[Task("Make a tasklist","None","AAA"),Task("Make another","None","AAB")]))
+#collection.add(ListItem("EasyLister","Small idea for a listmakerer",12,"Nonexistenter",[Task("Make a tasklister","Noneer","AAAer"),Task("Make anotherer","Noneer","AABer")]))
+
+#writer.saveOverwrite(collection.toDict())
