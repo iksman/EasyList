@@ -2,15 +2,19 @@ class ListCollection:
   def __init__(self):
     self.listItems = []
 
+  def remove(self,item):
+    newList = []
+    for newitem in self.listItems:
+      if newitem != item:
+        newList += [newitem]
+    self.listItems = newList
+
   def add(self, listItem):
     if (type(listItem) == ListItem):
       self.listItems += [listItem]
       return True
     else:
       return False
-
-  def remove(self, listItem):
-    pass
 
   def toDict(self):
     items = []

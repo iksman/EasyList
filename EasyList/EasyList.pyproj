@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4e3be60c-fbd5-4aa6-8ecf-229f7f102a5f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>GUI.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -29,6 +29,12 @@
     </Compile>
     <Compile Include="EasyList.py" />
     <Compile Include="GUI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InpOptions.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="main.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Writer.py">
