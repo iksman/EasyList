@@ -9,6 +9,9 @@ class ListCollection:
         newList += [newitem]
     self.listItems = newList
 
+  def removeAll(self):
+    self.listItems = []
+
   def add(self, listItem):
     if (type(listItem) == ListItem):
       self.listItems += [listItem]
@@ -33,6 +36,16 @@ class ListItem:
       for task in tasks:
         self.addTask(task)
 
+  def remove(self,task):
+    newlist = []
+    for item in self.tasks:
+      if task != item:
+        newlist += [item]
+    self.tasks = newlist
+
+  def removeAll(self):
+    self.tasks = []
+  
   def addTask(self, task):
     if (type(task) == Task):
       self.tasks += [task]

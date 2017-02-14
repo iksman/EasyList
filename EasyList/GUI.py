@@ -5,7 +5,7 @@ class InputHandler:
   def __init__(self,gui):
     self.gui = gui
   def inputHandler(self,function,parameter=None):
-    inp = input()
+    inp = input("?>")
     isInt = self.gui.parse(inp)
 
     if inp.lower() in InpOptions.quit:
@@ -39,6 +39,24 @@ class InputHandler:
           self.gui.parse(inp.lower().split(" ")[1])):
       self.removeHandler(function,int(inp.lower().split(" ")[1]))
 
+    elif (function == self.gui.main and 
+          inp.lower().split(" ")[0] in InpOptions.remove and 
+          len(inp.split(" ")) > 1 and 
+          inp.lower().split(" ")[1] in InpOptions.allP):
+      self.gui.collection.removeAll()
+
+    elif (function == self.gui.specItem and 
+          inp.lower().split(" ")[0] in InpOptions.remove and 
+          len(inp.split(" ")) > 1 and 
+          self.gui.parse(inp.lower().split(" ")[1])):
+      self.removeHandler(function,int(inp.lower().split(" ")[1]),parameter)
+    
+    elif (function == self.gui.specItem and 
+          inp.lower().split(" ")[0] in InpOptions.remove and 
+          len(inp.split(" ")) > 1 and 
+          inp.lower().split(" ")[1] in InpOptions.allP):
+      parameter.removeAll()
+
     #elif inp.lower() in InpOptions.save:
       #self.gui.writer.saveOverwrite(self.gui.collection.toDict())
     
@@ -64,10 +82,13 @@ class InputHandler:
       deadline = input("Deadline: ")
       item.addTask(Task(title,description,deadline))
 
-  def removeHandler(self, function, num):
+  def removeHandler(self, function, num, item=None):
     if function == self.gui.main:
       if len(self.gui.collection.listItems) >= int(num) and num > 0:
         self.gui.collection.remove(self.gui.collection.listItems[num - 1])
+    elif function == self.gui.specItem:
+      if len(item.tasks) >= int(num) and num > 0:
+        item.remove(item.tasks[num - 1])
 
 class GUI:
   def __init__(self,data,writer):
@@ -80,30 +101,32 @@ class GUI:
     self.collection.add(ListItem(title,description,priority,deadline))
 
   def main(self):
-    print("--Iksman's EasyList--\n\n")
+    print("--Iksman's EasyList--\n -Main Menu-\n")
     for item in self.collection.listItems:
       index = self.collection.listItems.index(item)
       print("Item " + str(index+1) + ":")
       print("\tTitle: "+ item.title)
       print("\tDescription: " + item.description)
       print("\tPriority: " + str(item.priority))
-      print("\tDeadline: " + item.deadline + "\n")
+      print("\tDeadline: " + item.deadline)
+      print("\tTasks: " + str(len(item.tasks)) + "\n")
     self.inputHandler.inputHandler(self.main)#Lambda here
     #self.quit()
 
   def specItem(self, item):
-    print("--Iksman's EasyList--\n\n")
+    print("--Iksman's EasyList--\n -Item View-\n")
     index = self.collection.listItems.index(item)
     print("Item " + str(index+1) + ":")
     print("\tTitle: "+ item.title)
     print("\tDescription: " + item.description)
     print("\tPriority: " + str(item.priority))
-    print("\tDeadline: " + item.deadline + "\n\n")
+    print("\tDeadline: " + item.deadline + "\n")
     for newItem in item.tasks:
       newIndex = item.tasks.index(newItem)
-      print("Task " + str(newIndex + 1) + ":")
-      print("\tTitle: " + newItem.title)
-      print("\tDescription: " + newItem.description)
+      print("\tTask " + str(newIndex + 1) + ":")
+      print("\t\tTitle: " + newItem.title)
+      print("\t\tDescription: " + newItem.description)
+      print("\t\tDeadline: " + newItem.deadline + "")
     self.inputHandler.inputHandler(self.specItem, item)  
 
   def parse(self, input):
