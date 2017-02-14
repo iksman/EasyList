@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>4e3be60c-fbd5-4aa6-8ecf-229f7f102a5f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>main.py</StartupFile>
+    <StartupFile>easylist.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,20 +24,23 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Decoder.py">
+    <Compile Include="file\Decoder.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EasyList.py" />
-    <Compile Include="GUI.py">
+    <Compile Include="file\EasyList.py" />
+    <Compile Include="file\GUI.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InpOptions.py">
+    <Compile Include="file\InpOptions.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="main.py">
+    <Compile Include="file\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Writer.py">
+    <Compile Include="easylist.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="file\Writer.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -45,7 +48,10 @@
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\3.5" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Deprecated.txt" />
+    <Content Include="file\Deprecated.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="file\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

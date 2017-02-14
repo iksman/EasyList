@@ -1,5 +1,5 @@
-import Writer, InpOptions, os
-from EasyList import *
+import os
+from file import InpOptions, Writer, EasyList
 
 class InputHandler:
   def __init__(self,gui):
@@ -80,7 +80,7 @@ class InputHandler:
       title = input("Title: ")
       description = input("Description: ")
       deadline = input("Deadline: ")
-      item.addTask(Task(title,description,deadline))
+      item.addTask(EasyList.Task(title,description,deadline))
 
   def removeHandler(self, function, num, item=None):
     if function == self.gui.main:
@@ -98,7 +98,7 @@ class GUI:
     self.main()    
 
   def addItem(self,title,description,priority,deadline):
-    self.collection.add(ListItem(title,description,priority,deadline))
+    self.collection.add(EasyList.ListItem(title,description,priority,deadline))
 
   def main(self):
     print("--Iksman's EasyList--\n -Main Menu-\n")
@@ -108,7 +108,8 @@ class GUI:
       print("\tTitle: "+ item.title)
       print("\tDescription: " + item.description)
       print("\tPriority: " + str(item.priority))
-      print("\tDeadline: " + item.deadline)
+      if item.deadline != "":
+        print("\tDeadline: " + item.deadline)
       print("\tTasks: " + str(len(item.tasks)) + "\n")
     self.inputHandler.inputHandler(self.main)#Lambda here
     #self.quit()
@@ -120,13 +121,19 @@ class GUI:
     print("\tTitle: "+ item.title)
     print("\tDescription: " + item.description)
     print("\tPriority: " + str(item.priority))
-    print("\tDeadline: " + item.deadline + "\n")
+    if item.deadline != "":
+      print("\tDeadline: " + item.deadline + "\n")
+    else:
+        print("")
     for newItem in item.tasks:
       newIndex = item.tasks.index(newItem)
       print("\tTask " + str(newIndex + 1) + ":")
       print("\t\tTitle: " + newItem.title)
       print("\t\tDescription: " + newItem.description)
-      print("\t\tDeadline: " + newItem.deadline + "")
+      if newItem.deadline != "":
+        print("\t\tDeadline: " + newItem.deadline + "")
+      else:
+        print("")
     self.inputHandler.inputHandler(self.specItem, item)  
 
   def parse(self, input):
