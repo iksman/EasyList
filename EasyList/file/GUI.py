@@ -107,7 +107,7 @@ class InputHandler:
       if len(item.tasks) >= int(num) and num > 0:
         self.gui.edit(num, item)
     
-  def removeHandler(self, function, num, item=None):
+  def removeHandler(self, function, num, item=None):#
     if function == self.gui.main:
       if len(self.gui.collection.listItems) >= int(num) and num > 0:
         uSure = input("Are you sure you want to delete item '" + self.gui.collection.listItems[num-1].title + "'? [y/n]")
