@@ -45,6 +45,18 @@ class InputHandler:
           inp.lower().split(" ")[1] in InpOptions.allP):
       self.gui.collection.removeAll()
 
+    elif (function == self.gui.main and
+          inp.lower().split(" ")[0] in InpOptions.edit and
+          len(inp.split(" ")) > 1 and
+          self.gui.parse(inp.lower().split(" ")[1])):
+      self.editHandler(function,int(inp.lower().split(" ")[1]))
+
+    elif (function == self.gui.specItem and 
+          inp.lower().split(" ")[0] in InpOptions.edit and 
+          len(inp.split(" ")) > 1 and 
+          self.gui.parse(inp.lower().split(" ")[1])):
+      self.editHandler(function,int(inp.lower().split(" ")[1]),parameter)
+                       
     elif (function == self.gui.specItem and 
           inp.lower().split(" ")[0] in InpOptions.remove and 
           len(inp.split(" ")) > 1 and 
@@ -82,6 +94,15 @@ class InputHandler:
       deadline = input("Deadline: ")
       item.addTask(EasyList.Task(title,description,deadline))
 
+  def editHandler(self,function,num,item=None):
+    if function == self.gui.main:
+      if len(self.gui.collection.listItems) >= int(num) and num > 0:
+        self.gui.edit(num)
+    elif function == self.gui.specItem:
+      if len(item.tasks) >= int(num) and num > 0:
+        self.gui.edit(num, item)
+    pass #edit Conditions here
+
   def removeHandler(self, function, num, item=None):
     if function == self.gui.main:
       if len(self.gui.collection.listItems) >= int(num) and num > 0:
@@ -99,6 +120,45 @@ class GUI:
 
   def addItem(self,title,description,priority,deadline):
     self.collection.add(EasyList.ListItem(title,description,priority,deadline))
+
+  def edit(self,item,typed=None):
+    try:
+      if typed == None:
+        if type(self.collection.listItems[item - 1]) == EasyList.ListItem:
+          title = input("Title (" + self.collection.listItems[item - 1].title[:20] + "...): ")
+          if title != "":
+            self.collection.listItems[item - 1].title = title
+          desc = input("Description (" + self.collection.listItems[item - 1].description[:20] + "...): ")
+          if desc != "":
+            self.collection.listItems[item - 1].description = desc
+          while True:
+            prio = input("Prioriteit (" + str(self.collection.listItems[item - 1].priority) + "): ")
+            if prio != "":
+              try:
+                prioFixed = int(prio)
+                self.collection.listItems[item - 1].priority = prioFixed
+                break
+              except:
+                pass
+            else:
+              break
+          deadline = input("Deadline (" + self.collection.listItems[item - 1].deadline[:20] + "): ")
+          if deadline != "":
+            self.collection.listItems[item - 1].deadline = deadline
+      else:
+        title = input("Title (" + typed.tasks[item - 1].title[:20] + "...): ")
+        if title != "":
+          typed.tasks[item - 1].title = title
+        desc = input("Description (" + typed.tasks[item - 1].description[:20] + "...): ")
+        if desc != "":
+          typed.tasks[item - 1].description = desc
+        deadline = input("Deadline (" + self.collection.listItems[item - 1].deadline[:20] + "): ")
+        if deadline != "":
+          typed.tasks[item - 1].deadline = deadline
+
+    except:
+      pass
+
 
   def main(self):
     print("--Iksman's EasyList--\n -Main Menu-\n")

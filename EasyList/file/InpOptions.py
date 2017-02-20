@@ -4,6 +4,7 @@ add = ["add", "ad", "a", "add "]
 remove = ["remove", "rem", "delete", "del", "remove", "rem", "del"]
 back = ["back","<","back ", "b", "b "]
 save = ["save", "sav"]
+edit = ["edit","e"]
 
 #items
 taskI = ["task","t"]
