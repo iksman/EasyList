@@ -37,13 +37,16 @@ class InputHandler:
           inp.lower().split(" ")[0] in InpOptions.remove and 
           len(inp.split(" ")) > 1 and 
           self.gui.parse(inp.lower().split(" ")[1])):
-      self.removeHandler(function,int(inp.lower().split(" ")[1]))
+      
+        self.removeHandler(function,int(inp.lower().split(" ")[1]))
 
     elif (function == self.gui.main and 
           inp.lower().split(" ")[0] in InpOptions.remove and 
           len(inp.split(" ")) > 1 and 
           inp.lower().split(" ")[1] in InpOptions.allP):
-      self.gui.collection.removeAll()
+      uSure = input("Are you sure you want to delete all items? [y/n]")
+      if uSure.lower() in InpOptions.agree:
+        self.gui.collection.removeAll()
 
     elif (function == self.gui.main and
           inp.lower().split(" ")[0] in InpOptions.edit and
@@ -67,7 +70,9 @@ class InputHandler:
           inp.lower().split(" ")[0] in InpOptions.remove and 
           len(inp.split(" ")) > 1 and 
           inp.lower().split(" ")[1] in InpOptions.allP):
-      parameter.removeAll()
+      uSure = input("Are you sure you want to delete all tasks? [y/n]")
+      if uSure.lower() in InpOptions.agree:
+        parameter.removeAll()
 
     #elif inp.lower() in InpOptions.save:
       #self.gui.writer.saveOverwrite(self.gui.collection.toDict())
@@ -101,15 +106,18 @@ class InputHandler:
     elif function == self.gui.specItem:
       if len(item.tasks) >= int(num) and num > 0:
         self.gui.edit(num, item)
-    pass #edit Conditions here
-
+    
   def removeHandler(self, function, num, item=None):
     if function == self.gui.main:
       if len(self.gui.collection.listItems) >= int(num) and num > 0:
-        self.gui.collection.remove(self.gui.collection.listItems[num - 1])
+        uSure = input("Are you sure you want to delete item '" + self.gui.collection.listItems[num-1].title + "'? [y/n]")
+        if uSure.lower() in InpOptions.agree:
+          self.gui.collection.remove(self.gui.collection.listItems[num - 1])
     elif function == self.gui.specItem:
       if len(item.tasks) >= int(num) and num > 0:
-        item.remove(item.tasks[num - 1])
+        uSure = input("Are you sure you want to delete task '" + item.tasks[num-1].title + "'? [y/n]")
+        if uSure.lower() in InpOptions.agree:
+          item.remove(item.tasks[num - 1])
 
 class GUI:
   def __init__(self,data,writer):
