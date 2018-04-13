@@ -1,8 +1,8 @@
 quit = ["quit","q","stop","exit","terminate", "quit "]
 item = ["i","item","select"]
-add = ["add", "ad", "a", "add "]
+add = ["add", "ad", "a", "add ", "create", "make","create ", "make "]
 remove = ["remove", "rem", "delete", "del", "remove", "rem", "del","rm"]
-back = ["back","<","back ", "b", "b "]
+back = ["back","<","back ", "b", "b ", "cd ../"]
 save = ["save", "sav"]
 edit = ["edit","e"]
 
